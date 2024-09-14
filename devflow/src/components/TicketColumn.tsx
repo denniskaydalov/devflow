@@ -48,7 +48,7 @@ export const TicketColumn = ({
             },
           }}
         >
-          {ticket.map((ticket, index) => (
+          {tickets.map((ticket, index) => (
             <TicketCard key={ticket.id} ticket={ticket} index={index} />
           ))}
           {droppableProvided.placeholder}
