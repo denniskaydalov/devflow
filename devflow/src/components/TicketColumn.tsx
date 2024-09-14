@@ -8,10 +8,10 @@ import React from "react";
 
 export const TicketColumn = ({
   status,
-  posts,
+  tickets,
 }: {
   status: Ticket["status"];
-  posts: Ticket[];
+  tickets: Ticket[];
 }) => (
   <Box
     sx={{
