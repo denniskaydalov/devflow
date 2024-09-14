@@ -1,4 +1,5 @@
-// Organizes tickets by status
+
+// organizes tickets based on status
 
 import type { Ticket } from ".";
 
