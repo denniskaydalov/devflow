@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Draggable } from "@hello-pangea/dnd";
-import { Box, Card, CardActions, CardContent, Typography } from "@mui/material";
-import { ShowButton } from "react-admin";
+import { Box, Card, CardContent, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import type { Ticket } from ".";
 
 export const TicketCard = ({ ticket, index }: { ticket: Ticket; index: number }) => {
-  const [showDetails, setShowDetails] = useState(false);
+  const navigate = useNavigate();
 
   const handleCardClick = () => {
-    setShowDetails(!showDetails);
+    navigate(`/tickets/${ticket.id}`);
   };
 
   return (
@@ -43,16 +43,9 @@ export const TicketCard = ({ ticket, index }: { ticket: Ticket; index: number })
               </Typography>
               <Typography variant="body2">{ticket.content}</Typography>
             </CardContent>
-            <CardActions>
-              {showDetails && (
-                <ShowButton resource="tickets" record={ticket} />
-              )}
-            </CardActions>
           </Card>
         </Box>
       )}
     </Draggable>
   );
 };
-
-export default TicketCard;
