@@ -1,4 +1,4 @@
-export * from "./Ticket";
+export * from "./TicketCard";
 
 export interface Ticket {
   id: number;
