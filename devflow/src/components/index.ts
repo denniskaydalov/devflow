@@ -8,4 +8,6 @@ export interface Ticket {
   content: string;
   status: "in_dev" | "in_test" | "in_review" | "done";
   index: number;
+  assignee?: string;
+  reporter: string;
 }

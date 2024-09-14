@@ -1,35 +1,182 @@
-import React from "react";
-import { Dialog, DialogTitle, DialogContent, IconButton, Typography } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import type { Ticket } from ".";
+import React, { useState } from 'react';
+import { Dialog, DialogContent, DialogActions, Box, Typography, TextField, MenuItem, Button } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material/Select';
+import { Ticket, statuses, statusNames } from ".";
+import axios from 'axios';
 
-interface TicketModalProps {
-  ticket: Ticket;
-  open: boolean;
-  onClose: () => void;
-}
+const people = ['Alice', 'Bob', 'Charlie']; // Temporary hardcoded users
 
-const TicketModal: React.FC<TicketModalProps> = ({ ticket, open, onClose }) => {
+const TicketModal = ({ open, onClose, ticket }) => {
+  const [status, setStatus] = useState(ticket.status || '');
+  const [assignee, setAssignee] = useState(ticket.assignee || 'Unassigned');
+  const [reporter, setReporter] = useState(ticket.reporter);
+
+  const handleStatusChange = (event: SelectChangeEvent) => {
+    setStatus(event.target.value);
+  };
+
+  const handleAssigneeChange = (event: SelectChangeEvent) => {
+    setAssignee(event.target.value);
+  };
+
+  const handleReporterChange = (event: SelectChangeEvent) => {
+    setReporter(event.target.value);
+  };
+
+  const updateTicket = async (updatedTicket: Ticket) => {
+    try {
+      await axios.put(`/api/tickets/${updatedTicket.id}`, updatedTicket);
+    } catch (error) {
+      console.error('Error updating ticket:', error);
+    }
+  };
+
+  const handleSave = () => {
+    const updatedTicket = {
+      ...ticket,
+      status,
+      assignee: assignee === 'Unassigned' ? null : assignee,
+      reporter: reporter === 'Unassigned' ? null : reporter,
+    };
+    updateTicket(updatedTicket);
+    onClose();
+  };
+
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>
-        {ticket.title}
-        <IconButton
-          edge="end"
-          color="inherit"
-          onClick={onClose}
-          aria-label="close"
-          sx={{ position: 'absolute', right: 16, top: 5, color: (theme) => theme.palette.grey[500] }}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent>
-        <Typography variant="body1" gutterBottom>
-          {ticket.content}
-        </Typography>
-        {/* You can add more details or actions here if needed */}
+    <Dialog open={open} onClose={onClose} fullWidth>
+      <DialogContent sx={{ padding: 4 }}>
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <Box sx={{ flex: 3 }}>
+            <Typography variant="h5" component="div" gutterBottom>
+              {ticket.title}
+            </Typography>
+            <Typography variant="body1">
+              {ticket.content}
+            </Typography>
+          </Box>
+
+          <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
+            <Box>
+              <Typography variant="subtitle1">Status</Typography>
+              <TextField
+                select
+                value={status}
+                onChange={handleStatusChange}
+                variant="outlined"
+                fullWidth
+                sx={{ 
+                  marginBottom: 1,
+                  '& .MuiSelect-select': {
+                    fontSize: '0.8rem', 
+                    height: '20px',
+                  },
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      maxHeight: 200, 
+                      '& .MuiMenuItem-root': {
+                        fontSize: '0.8rem', 
+                        height: '20px', 
+                      },
+                    },
+                  },
+                }}
+              >
+                {statuses.map((status) => (
+                  <MenuItem key={status} value={status}>
+                    {statusNames[status]}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
+
+            <Box>
+              <Typography variant="subtitle1">Assignee</Typography>
+              <TextField
+                select
+                value={assignee}
+                onChange={handleAssigneeChange}
+                variant="outlined"
+                fullWidth
+                sx={{ 
+                  marginBottom: 1,
+                  '& .MuiSelect-select': {
+                    fontSize: '0.8rem',
+                    height: '20px',
+                  },
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      maxHeight: 200,
+                      '& .MuiMenuItem-root': {
+                        fontSize: '0.8rem',
+                        height: '20px',
+                      },
+                    },
+                  },
+                }}
+              >
+                <MenuItem key="Unassigned" value="Unassigned">
+                  Unassigned
+                </MenuItem>
+                {people.map((person) => (
+                  <MenuItem key={person} value={person}>
+                    {person}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
+
+            <Box>
+              <Typography variant="subtitle1">Reporter</Typography>
+              <TextField
+                select
+                value={reporter}
+                onChange={handleReporterChange}
+                variant="outlined"
+                fullWidth
+                sx={{ 
+                  marginBottom: 1,
+                  '& .MuiSelect-select': {
+                    fontSize: '0.8rem',
+                    height: '20px',
+                  },
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      maxHeight: 200,
+                      '& .MuiMenuItem-root': {
+                        fontSize: '0.8rem',
+                        height: '20px',
+                      },
+                    },
+                  },
+                }}
+              >
+                <MenuItem key="Unassigned" value="Unassigned">
+                  Unassigned
+                </MenuItem>
+                {people.map((person) => (
+                  <MenuItem key={person} value={person}>
+                    {person}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
+          </Box>
+        </Box>
       </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose} color="primary">
+          Close
+        </Button>
+        <Button onClick={handleSave} color="primary">
+          Save
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };
