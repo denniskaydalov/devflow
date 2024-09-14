@@ -1,4 +1,6 @@
 export * from "./TicketCard";
+export * from "./statuses"; 
+
 
 export interface Ticket {
   id: number;
