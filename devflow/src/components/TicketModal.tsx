@@ -9,7 +9,7 @@ const people = ['Alice', 'Bob', 'Charlie']; // Temporary hardcoded users
 const TicketModal = ({ open, onClose, ticket }) => {
   const [status, setStatus] = useState(ticket.status || '');
   const [assignee, setAssignee] = useState(ticket.assignee || 'Unassigned');
-  const [reporter, setReporter] = useState(ticket.reporter || 'Unassigned');
+  const [reporter, setReporter] = useState(ticket.reporter);
 
   const handleStatusChange = (event: SelectChangeEvent) => {
     setStatus(event.target.value);
