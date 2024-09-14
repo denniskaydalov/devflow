@@ -1,3 +1,5 @@
+// Organizes tickets by status
+
 import type { Ticket } from ".";
 
 export const statuses: Ticket["status"][] = [
@@ -14,24 +16,24 @@ export const statusNames: Record<Ticket["status"], string> = {
   done: "Done"
 };
 
-export type PostsByStatus = Record<Ticket["status"], Ticket[]>;
+export type TicketsByStatus = Record<Ticket["status"], Ticket[]>;
 
-export const getPostsByStatus = (unorderedPosts: Ticket[]) => {
-  const postsByStatus: PostsByStatus = unorderedPosts.reduce(
+export const getTicketsByStatus = (unorderedPosts: Ticket[]) => {
+  const ticketsByStatus: TicketsByStatus = unorderedPosts.reduce(
     (acc, post) => {
       acc[post.status].push(post);
       return acc;
     },
     statuses.reduce(
       (obj, status) => ({ ...obj, [status]: [] }),
-      {} as PostsByStatus
+      {} as TicketsByStatus
     )
   );
   // order each column by index
   statuses.forEach((status) => {
-    postsByStatus[status] = postsByStatus[status].sort(
+    ticketsByStatus[status] = ticketsByStatus[status].sort(
       (recordA: Ticket, recordB: Ticket) => recordA.index - recordB.index
     );
   });
-  return postsByStatus;
+  return ticketsByStatus;
 };
