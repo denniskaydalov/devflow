@@ -8,13 +8,16 @@ In an era where agility is the key to success, especially for small businesses a
 
 Completely automated and self-directing Kanban board, encouraging a friction free workflow and increasing efficiency.
 
+The board is split into 4 key categories: In-Dev, In-Test, In-Review and Done. As the ticket progresses in GitHub from one development stage to the next, it will do so automatically on our board as well, containing essential information such as status, assignee, reporter and branch. 
+
 ## How we built it
 
 TS & React, Python, AWS and Databricks.
 
-## Challenges we ran into
+## Accomplishments that we're proud of
 
-Working to integrate JavaScript and TypeScript within a singular project, and account 
+Learning the intricacies of what it takes to create a business process model, and integrating GitHub-related functions with an intuitive front-end display
+
 
 ## What's next for devflow
 
