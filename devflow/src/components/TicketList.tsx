@@ -26,6 +26,6 @@ export const TicketList = () => {
 
 const FallbackForMobile = () => (
   <Typography mt={3} align="center">
-    The Kanban board demo is not available on mobile
+    Currently not supported on mobile devices.
   </Typography>
 );
