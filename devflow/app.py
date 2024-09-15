@@ -47,6 +47,10 @@ def get_max_id(tickets : Tickets) -> int:
 def get_ticket_status(action : Action) -> Status:
     if 'test' in action.message.lower():
         return Status.in_test
+    elif 'review' in action.message.lower():
+        return Status.in_review
+    elif 'done' in action.message.lower():
+        return Status.done
     else:
         return Status.in_dev
 
@@ -72,9 +76,9 @@ def add_to_data(action : Action):
     max_index = get_max_index_for_status(tickets = tickets, status = status)
 
     ticket_from_action = Ticket(id = max_id + 1, 
-                                title = action.branch.replace('_', ' '),
+                                title = action.branch.replace('_', ' ').replace('-', ' ').split('/')[-1],
                                 status = status,
-                                content = 'content',
+                                content = action.branch.replace('_', ' ').replace('-', ' '),
                                 index = max_index + 1,
                                 reporter = action.username,
                                 assignee = action.username,
@@ -105,11 +109,21 @@ def write_tickets(tickets : List[Ticket]):
         f.write(json)
 
 @app.post("/tickets/")
+def create_ticket_full(d: dict):
+    print(d)
+    return add_to_data(action = Action(username=d['commits'][0]['author']['username'],
+                                       branch=d.get('ref', 'unknown'),
+                                       message=d['commits'][0]['message']
+                                       ))
+
+@app.post("/create/ticket/")
 def create_ticket(action: Action):
     return add_to_data(action = action)
 
-@app.get("/review/{branch_name}")
-def move_to_review(branch_name : str):
+@app.post("/review/")
+def move_to_review(branch_name : dict):
+    branch_name = branch_name['ref']
+
     file_data = read_data()
 
     tickets = Tickets(**file_data).tickets
@@ -122,8 +136,9 @@ def move_to_review(branch_name : str):
 
     return tickets[i]
 
-@app.get("/done/{branch_name}")
-def move_to_done(branch_name : str):
+@app.post("/done/")
+def move_to_done(branch_name : dict):
+    branch_name = branch_name['ref']
     file_data = read_data()
 
     tickets = Tickets(**file_data).tickets
