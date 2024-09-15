@@ -2,7 +2,7 @@ import { List, SearchInput } from "react-admin";
 import { useMediaQuery, Typography, Theme } from "@mui/material";
 import React from "react"; // added this import to keep it functional
 
-import { TicketListContent } from ".";
+import { TicketListContent } from "./TicketListContent.tsx";
 
 const ticketFilters = [
   // eslint-disable-next-line react/jsx-key
