@@ -38,9 +38,6 @@ def read_data() -> dict:
 def get_max_id(tickets : Tickets) -> int:
     id = 0
     for ticket in tickets:
-        #print()
-        #print(type(ticket), type(tickets), tickets)
-        #print()
         id = max(id, ticket.id)
 
     return id
@@ -66,9 +63,6 @@ def add_to_data(action : Action):
 
     tickets = Tickets(**file_data).tickets
 
-    print(tickets)
-    print(action)
-
     max_id = get_max_id(tickets=tickets)
 
     status = get_ticket_status(action = action)
@@ -91,11 +85,21 @@ def add_to_data(action : Action):
     else:
         tickets.append(ticket_from_action)
     
+    json = Tickets(tickets = tickets).model_dump_json()
+
+    with open("src/data.json", "w") as f:
+        f.write(json)
+
     return ticket_from_action
 
 @app.post("/tickets/")
 def create_ticket(action: Action):
     return add_to_data(action = action)
+
+
+@app.get("/data/")
+def get_data():
+    return read_data()
 
 if __name__ == '__main__':
     add_to_data({'username' : 'denniskaydalov',
@@ -103,6 +107,3 @@ if __name__ == '__main__':
                        'message'  : 'Bug fixes',
                        })
     
-    
-
-
