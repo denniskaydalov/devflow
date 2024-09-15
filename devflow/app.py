@@ -22,6 +22,8 @@ class Ticket(BaseModel):
     content : str
     status : Status
     index : int # ?
+    reporter : Optional[str] = None
+    assignee : Optional[str] = None
     branch : Optional[str] = None
 
 class Tickets(BaseModel):
@@ -59,7 +61,7 @@ def get_max_index_for_status(tickets : Tickets, status : Status) -> int:
 
 def add_to_data(action : Action):
 
-    file_data : dict = read_data()
+    file_data = read_data()
 
     tickets = Tickets(**file_data).tickets
 
@@ -74,27 +76,66 @@ def add_to_data(action : Action):
                                 status = status,
                                 content = 'content',
                                 index = max_index + 1,
+                                reporter = action.username,
+                                assignee = action.username,
                                 branch = action.branch)
 
 
     if action.branch in [ticket.branch for ticket in tickets]: # assignee logic
         for i in range(len(tickets)):
             if tickets[i].branch == action.branch:
+                ticket_from_action.reporter = tickets[i].reporter
+
+                if action.username not in ticket_from_action.assignee:
+                    ticket_from_action.assignee += ',' + action.username
                 tickets[i] = ticket_from_action
                 break
     else:
         tickets.append(ticket_from_action)
+
+    write_tickets(tickets = tickets)
     
+
+    return ticket_from_action
+
+def write_tickets(tickets : List[Ticket]):
     json = Tickets(tickets = tickets).model_dump_json()
 
     with open("src/data.json", "w") as f:
         f.write(json)
 
-    return ticket_from_action
-
 @app.post("/tickets/")
 def create_ticket(action: Action):
     return add_to_data(action = action)
+
+@app.get("/review/{branch_name}")
+def move_to_review(branch_name : str):
+    file_data = read_data()
+
+    tickets = Tickets(**file_data).tickets
+
+    for i in range(len(tickets)):
+        if tickets[i].branch == branch_name:
+            tickets[i].status = Status.in_review
+
+    write_tickets(tickets = tickets)
+
+    return tickets[i]
+
+@app.get("/done/{branch_name}")
+def move_to_done(branch_name : str):
+    file_data = read_data()
+
+    tickets = Tickets(**file_data).tickets
+
+    for i in range(len(tickets)):
+        if tickets[i].branch == branch_name:
+            tickets[i].status = Status.done
+
+    write_tickets(tickets = tickets)
+
+    return tickets[i]
+
 
 
 @app.get("/data/")
