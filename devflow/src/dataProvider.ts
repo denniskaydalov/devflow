@@ -1,7 +1,7 @@
 import fakeRestDataProvider from "ra-data-fakerest";
 import { DataProvider } from "react-admin";
 import data from "./data.json";
-import { Ticket, getTicketsByStatus } from "./tickets";
+import { Ticket, getTicketsByStatus } from "./components";
 
 const baseDataProvider = fakeRestDataProvider(data, true);
 
