@@ -27,7 +27,7 @@ export const TicketList = () => {
         gutterBottom
         sx={{ mb: 3 }}
       >
-        Jira board
+        Kanban board
       </Typography>
       <List
         filters={ticketFilters}

@@ -122,13 +122,16 @@ def create_ticket(action: Action):
 
 @app.post("/review/")
 def move_to_review(branch_name : dict):
-    branch_name = branch_name['ref']
+    branch_name = branch_name['pull_request']['head']['ref']
+    
+    print(branch_name)
 
     file_data = read_data()
 
     tickets = Tickets(**file_data).tickets
 
     for i in range(len(tickets)):
+        print(tickets[i].branch, branch_name)
         if tickets[i].branch == branch_name:
             tickets[i].status = Status.in_review
 
@@ -138,7 +141,7 @@ def move_to_review(branch_name : dict):
 
 @app.post("/done/")
 def move_to_done(branch_name : dict):
-    branch_name = branch_name['ref']
+    branch_name = branch_name['pull_request']['head']['ref']
     file_data = read_data()
 
     tickets = Tickets(**file_data).tickets
