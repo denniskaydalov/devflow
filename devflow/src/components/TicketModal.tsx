@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogActions, Box, Typography, TextField, MenuItem, Button } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { Ticket, statuses, statusNames } from ".";
-import axios from 'axios';
 
 const people = ['Alice', 'Bob', 'Charlie']; // Temporary hardcoded users
 
