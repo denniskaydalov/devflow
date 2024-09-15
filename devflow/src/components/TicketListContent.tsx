@@ -16,13 +16,8 @@ export const TicketListContent = () => {
   const [ticketsByStatus, setTicketsByStatus] = useState<TicketsByStatus>(
     getTicketsByStatus([])
   );
-  console.log("useListContext()", useListContext());
-  console.log("unorderedTickets:", unorderedTickets); // Debug output
-
-  console.log(unorderedTickets)
 
   useEffect(() => {
-    console.log("here")
     if (unorderedTickets) {
       const newTicketsByStatus = getTicketsByStatus(unorderedTickets);
       if (!isEqual(newTicketsByStatus, ticketsByStatus)) {
@@ -52,10 +47,6 @@ export const TicketListContent = () => {
       console.error('Error updating ticket status:', error);
     },
   });
-
-  console.log(statuses)
-  console.log(ticketsByStatus)
-  
 
   if (isLoading) return null;
 
