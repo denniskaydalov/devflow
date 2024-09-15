@@ -76,6 +76,7 @@ export const TicketListContent = () => {
       reporter: 'Temp Reporter',
       status: destinationStatus,
       index: destination.index,
+      branch: 'Temp Branch'
     };
   
     // compute local state change synchronously

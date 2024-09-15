@@ -10,4 +10,5 @@ export interface Ticket {
   index: number;
   assignee?: string;
   reporter: string;
+  branch: string;
 }
