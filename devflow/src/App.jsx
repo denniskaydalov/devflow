@@ -8,7 +8,7 @@ import { dataProvider } from "./dataProvider";
 export const App = () => (
   <Admin dataProvider={dataProvider}>
     <Resource
-      name="board"
+      name="tickets"
       list={TicketList}
     />
   </Admin>

@@ -23,6 +23,10 @@ export const getTicketsByStatus = (unorderedTickets: Ticket[]) => {
   console.log(unorderedTickets)
   const ticketsByStatus: TicketsByStatus = unorderedTickets.reduce(
     (acc, ticket) => {
+      console.log(acc)
+      console.log(ticket)
+      console.log(ticket.status)
+      console.log(acc[ticket.status])
       acc[ticket.status].push(ticket);
       return acc;
     },

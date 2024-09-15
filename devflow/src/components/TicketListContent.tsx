@@ -16,8 +16,13 @@ export const TicketListContent = () => {
   const [ticketsByStatus, setTicketsByStatus] = useState<TicketsByStatus>(
     getTicketsByStatus([])
   );
+  console.log("useListContext()", useListContext());
+  console.log("unorderedTickets:", unorderedTickets); // Debug output
+
+  console.log(unorderedTickets)
 
   useEffect(() => {
+    console.log("here")
     if (unorderedTickets) {
       const newTicketsByStatus = getTicketsByStatus(unorderedTickets);
       if (!isEqual(newTicketsByStatus, ticketsByStatus)) {
