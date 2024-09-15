@@ -97,7 +97,16 @@ export const TicketListContent = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Box display="flex">
+      <Box
+        display="flex"
+        sx={{
+          gap: 1,
+          '& > *': {
+            borderRadius: 0.8,
+            overflow: 'hidden',
+          },
+        }}
+      >
         {statuses.map((status) => (
           <TicketColumn
             status={status}

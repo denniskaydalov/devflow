@@ -40,7 +40,7 @@ export const TicketColumn = ({
           sx={{
             display: "flex",
             flexDirection: "column",
-            borderRadius: 5,
+            borderRadius: 1.5,
             padding: "5px",
             "&.isDraggingOver": {
               bgcolor: "#dadadf",

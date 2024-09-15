@@ -1,25 +1,44 @@
 import { List, SearchInput } from "react-admin";
-import { useMediaQuery, Typography, Theme } from "@mui/material";
-import React from "react"; // added this import to keep it functional
-
+import { Box, Typography } from "@mui/material";
 import { TicketListContent } from "./TicketListContent";
 
 const ticketFilters = [
   // eslint-disable-next-line react/jsx-key
-  <SearchInput source="q" alwaysOn />,
+  <SearchInput
+    source="q"
+    alwaysOn
+    sx={{ mb: 2 }}
+  />,
 ];
 
 export const TicketList = () => {
   return (
-    <List
-      filters={ticketFilters}
-      perPage={100}
-      sort={{ field: "index", order: "ASC" }}
-      pagination={false}
-      component="div"
+    <Box
+      sx={{
+        marginRight: 8,
+        padding: 4,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
     >
-      <TicketListContent />
-    </List>
+      <Typography
+        variant="h4"
+        component="h1"
+        gutterBottom
+        sx={{ mb: 3 }}
+      >
+        Jira board
+      </Typography>
+      <List
+        filters={ticketFilters}
+        perPage={100}
+        sort={{ field: "index", order: "ASC" }}
+        pagination={false}
+        component="div"
+      >
+         <TicketListContent />
+      </List>
+    </Box>
   );
 };
 

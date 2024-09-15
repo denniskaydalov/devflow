@@ -66,6 +66,12 @@ const TicketModal: React.FC<TicketModalProps> = ({ open, onClose, ticket }) => {
                 sx={{ 
                   marginBottom: 1,
                   fontSize: '0.8rem',
+                  height: '40px', // Set height for the select
+                  '& .MuiSelect-select': {
+                    height: '40px', // Ensure select content is vertically centered
+                    display: 'flex',
+                    alignItems: 'center',
+                  },
                 }}
                 MenuProps={{
                   PaperProps: {
@@ -73,7 +79,7 @@ const TicketModal: React.FC<TicketModalProps> = ({ open, onClose, ticket }) => {
                       maxHeight: 200,
                       '& .MuiMenuItem-root': {
                         fontSize: '0.8rem',
-                        height: '20px',
+                        height: '30px', // Adjust the height of the menu items
                       },
                     },
                   },
@@ -97,6 +103,12 @@ const TicketModal: React.FC<TicketModalProps> = ({ open, onClose, ticket }) => {
                 sx={{ 
                   marginBottom: 1,
                   fontSize: '0.8rem',
+                  height: '40px', // Set height for the select
+                  '& .MuiSelect-select': {
+                    height: '40px', // Ensure select content is vertically centered
+                    display: 'flex',
+                    alignItems: 'center',
+                  },
                 }}
                 MenuProps={{
                   PaperProps: {
@@ -104,7 +116,7 @@ const TicketModal: React.FC<TicketModalProps> = ({ open, onClose, ticket }) => {
                       maxHeight: 200,
                       '& .MuiMenuItem-root': {
                         fontSize: '0.8rem',
-                        height: '20px',
+                        height: '30px', // Adjust the height of the menu items
                       },
                     },
                   },
@@ -131,6 +143,12 @@ const TicketModal: React.FC<TicketModalProps> = ({ open, onClose, ticket }) => {
                 sx={{ 
                   marginBottom: 1,
                   fontSize: '0.8rem',
+                  height: '40px', // Set height for the select
+                  '& .MuiSelect-select': {
+                    height: '40px', // Ensure select content is vertically centered
+                    display: 'flex',
+                    alignItems: 'center',
+                  },
                 }}
                 MenuProps={{
                   PaperProps: {
@@ -138,7 +156,7 @@ const TicketModal: React.FC<TicketModalProps> = ({ open, onClose, ticket }) => {
                       maxHeight: 200,
                       '& .MuiMenuItem-root': {
                         fontSize: '0.8rem',
-                        height: '20px',
+                        height: '30px', // Adjust the height of the menu items
                       },
                     },
                   },
