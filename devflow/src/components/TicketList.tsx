@@ -2,7 +2,7 @@ import { List, SearchInput } from "react-admin";
 import { useMediaQuery, Typography, Theme } from "@mui/material";
 import React from "react"; // added this import to keep it functional
 
-import { TicketListContent } from "./TicketListContent.tsx";
+import { TicketListContent } from "./TicketListContent";
 
 const ticketFilters = [
   // eslint-disable-next-line react/jsx-key
@@ -10,7 +10,6 @@ const ticketFilters = [
 ];
 
 export const TicketList = () => {
-  const isSmall = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
   return (
     <List
       filters={ticketFilters}
@@ -19,13 +18,9 @@ export const TicketList = () => {
       pagination={false}
       component="div"
     >
-      {isSmall ? <FallbackForMobile /> : <TicketListContent />}
+      <TicketListContent />
     </List>
   );
 };
 
-const FallbackForMobile = () => (
-  <Typography mt={3} align="center">
-    Currently not supported on mobile devices.
-  </Typography>
-);
+export default TicketList;

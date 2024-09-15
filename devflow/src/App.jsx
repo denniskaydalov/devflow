@@ -2,11 +2,14 @@ import {
   Admin,
   Resource,
 } from "react-admin";
+import TicketList from "./components/TicketList"
+import { dataProvider } from "./dataProvider";
 
 export const App = () => (
-  <Admin>
+  <Admin dataProvider={dataProvider}>
     <Resource
       name="board"
+      list={TicketList}
     />
   </Admin>
 );

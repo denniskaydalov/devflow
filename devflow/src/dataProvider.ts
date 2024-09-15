@@ -3,6 +3,8 @@ import { DataProvider } from "react-admin";
 import data from "./data.json";
 import { Ticket, getTicketsByStatus } from "./components";
 
+console.log("Data loaded into provider:", data);
+
 const baseDataProvider = fakeRestDataProvider(data, true);
 
 export interface MyDataProvider extends DataProvider {

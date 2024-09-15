@@ -4,7 +4,6 @@ import { Box, Typography } from "@mui/material";
 import type { Ticket } from ".";
 import { statusNames } from ".";
 import { TicketCard } from "./TicketCard";
-import React from "react";
 
 export const TicketColumn = ({
   status,

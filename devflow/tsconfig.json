@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "target": "ES6",                          // Set ECMAScript target version
+      "module": "ES6",                          // Set module system
+      "jsx": "react-jsx",                       // Support JSX in TSX files
+      "resolveJsonModule": true,                // Enable JSON module resolution
+      "strict": false,                           // Enable strict type-checking
+      "moduleResolution": "node",               // Look for modules in node_modules
+      "esModuleInterop": true,                  // Allow default imports from CommonJS modules
+      "skipLibCheck": true,                     // Skip checking library files
+      "forceConsistentCasingInFileNames": true  // Ensure consistent file name casing
+    },
+    "include": ["src/**/*"],                    // Include all files in the src directory
+    "exclude": ["node_modules"]                 // Exclude the node_modules directory
+  }

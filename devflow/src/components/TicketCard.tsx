@@ -52,7 +52,7 @@ export const TicketCard = ({ ticket, index }: { ticket: Ticket; index: number })
         )}
       </Draggable>
 
-      <TicketModal ticket={ticket} open={open} onClose={handleClose} />
+      {/* <TicketModal ticket={ticket} open={open} onClose={handleClose} /> */}
     </>
   );
 };

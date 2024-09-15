@@ -20,6 +20,7 @@ export const statusNames: Record<Ticket["status"], string> = {
 export type TicketsByStatus = Record<Ticket["status"], Ticket[]>;
 
 export const getTicketsByStatus = (unorderedTickets: Ticket[]) => {
+  console.log(unorderedTickets)
   const ticketsByStatus: TicketsByStatus = unorderedTickets.reduce(
     (acc, ticket) => {
       acc[ticket.status].push(ticket);
